@@ -2,6 +2,7 @@
 #define DO_YLed 12 // output D6
 #define DO_GLed 13 // output D7
 #define DI_CarSensor 15 // input D8
+#define DI_AnalogPin 2 // input D4
 
 typedef enum TrafficLightStates {
   StateRed,
@@ -16,12 +17,22 @@ bool CarSense = false;
 unsigned long delayStart = 0;
 bool delayRunning = false;
 
+/**
+ * Turns three LED lamps on or off.
+ * 
+ * @param red Red LED lamp.
+ * @param yellow Yellow LED lamp.
+ * @param green Green LED lamp.
+ */
 void changeLight(bool red, bool yellow, bool green) {
   digitalWrite(DO_RLed, red ? HIGH : LOW);
   digitalWrite(DO_YLed, yellow ? HIGH : LOW);
   digitalWrite(DO_GLed, green ? HIGH : LOW);
 }
 
+/**
+ * Starts the timer.
+ */
 void startTimer() {
   if (delayRunning) {
      return;
@@ -31,10 +42,18 @@ void startTimer() {
   delayRunning = true;
 }
 
+/**
+ * Stops the timer.
+ */
 void stopTimer() {
   delayRunning = false;
 }
 
+/**
+ * Checks if the timer is complete.
+ * 
+ * @return whether or not the timer is complete.
+ */
 bool checkTimer() {
   return delayRunning && ((millis() - delayStart) >= 10000);
 }
@@ -49,7 +68,7 @@ void setup() {
 }
 
 void loop() {
-  // Read from input
+  // Read from button input
   CarSense = digitalRead(DI_CarSensor);
   
   switch (TLState) {
