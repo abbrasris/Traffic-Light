@@ -1,8 +1,7 @@
-#define DO_RLed 14 // output D5
-#define DO_YLed 12 // output D6
-#define DO_GLed 13 // output D7
-#define DI_CarSensor 15 // input D8
-#define DI_AnalogPin 2 // input D4
+#define DO_RLed D5
+#define DO_YLed D6
+#define DO_GLed D7
+#define DI_CarSensor D8
 
 typedef enum TrafficLightStates {
   StateRed,
